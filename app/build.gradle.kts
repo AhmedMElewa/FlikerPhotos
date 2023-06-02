@@ -41,6 +41,10 @@ android {
             path("CMakeLists.txt")
         }
     }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
