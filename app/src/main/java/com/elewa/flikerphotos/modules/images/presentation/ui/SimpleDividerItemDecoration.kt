@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.hefny.hady.pixabaygallery.R
+import com.elewa.flikerphotos.R
 
 class SimpleDividerItemDecoration(val context: Context) : RecyclerView.ItemDecoration() {
     private val mDivider: Drawable? = ContextCompat.getDrawable(context, R.drawable.divider)

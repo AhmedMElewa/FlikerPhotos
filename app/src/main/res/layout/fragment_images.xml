@@ -4,10 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="pagingAdapter"
+            type="com.elewa.flikerphotos.modules.images.presentation.adapter.ImagesPagingAdapter" />
+
+        <variable
+            name="loadAdapter"
+            type="com.elewa.flikerphotos.modules.images.presentation.adapter.ImagesLoadStateAdapter" />
 
         <variable
             name="itemDecorator"
-            type="com.elewa.flikerphotos.modules.images.presentation.view.SimpleDividerItemDecoration" />
+            type="com.elewa.flikerphotos.modules.images.presentation.ui.SimpleDividerItemDecoration" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +26,7 @@
             android:id="@+id/rvImages"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adapter="@{pagingAdapter.withLoadStateFooter(loadAdapter)}"
             android:clipToPadding="false"
             android:paddingTop="8dp"
             app:itemDecoration="@{itemDecorator}"

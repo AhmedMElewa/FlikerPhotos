@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="entity"
+            type="com.elewa.flikerphotos.modules.images.domain.entity.ImageEntity" />
 
     </data>
 
@@ -18,6 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:scaleType="fitCenter"
+            app:url="@{entity.previewUrl}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

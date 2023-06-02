@@ -19,6 +19,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.elewa.flikerphotos.modules.detail.presentation.ui.DetailsFragment"
         android:label="Details" >
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
 
     </fragment>
 </navigation>

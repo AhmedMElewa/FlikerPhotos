@@ -1,6 +1,6 @@
 package com.elewa.flikerphotos.core.keys
 
-class FlikerKeys {
+object FlikerKeys {
 
     external fun getBaseUrl(): String
     external fun getApiKey(): String
