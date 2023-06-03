@@ -18,7 +18,7 @@ android {
         versionCode = ConfigData.versionCode
         versionName = ConfigData.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.elewa.flikerphotos.HiltTestRunner"
     }
 
     buildTypes {
@@ -92,7 +92,25 @@ dependencies {
     implementation(AndroidUI.constraintLayout)
 
     // ------------ testing -------------------------------------
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // Local Unit Tests
+    testImplementation (Test.junit)
+    testImplementation (Test.hamcrest)
+    testImplementation (Test.testingCore)
+    testImplementation (Test.robolectric)
+    testImplementation (Test.testingCoroutines)
+    testImplementation (Test.truth)
+    testImplementation (Test.mockito)
+    testImplementation (Test.hilt)
+    kaptTest (Test.kaptHilt)
+
+    // Instrumented Unit Tests
+    androidTestImplementation (Test.junit)
+    androidTestImplementation (Test.testingCoroutines)
+    androidTestImplementation (Test.testingCore)
+    androidTestImplementation (Test.truth)
+    androidTestImplementation (Test.junitExt)
+    androidTestImplementation (Test.espresso)
+    androidTestImplementation (Test.mockito)
+    androidTestImplementation (Test.hilt)
+    kaptAndroidTest (Test.kaptHilt)
 }

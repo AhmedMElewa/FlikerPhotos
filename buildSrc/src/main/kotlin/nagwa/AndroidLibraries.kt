@@ -54,3 +54,16 @@ object Glide {
     const val glide =  "com.github.bumptech.glide:glide:$glide_version"
     const val glideKapt=  "com.github.bumptech.glide:compiler:$glide_version"
 }
+object Test {
+    const val junit = "junit:junit:4.13"
+    const val hamcrest = "org.hamcrest:hamcrest-all:1.3"
+    const val testingCore= "androidx.arch.core:core-testing:2.1.0"
+    const val robolectric = "org.robolectric:robolectric:4.3.1"
+    const val testingCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1"
+    const val truth = "com.google.truth:truth:1.0.1"
+    const val mockito = "org.mockito:mockito-core:2.21.0"
+    const val junitExt = "androidx.test.ext:junit:1.1.1"
+    const val espresso =  "androidx.test.espresso:espresso-core:3.2.0"
+    const val hilt = "com.google.dagger:hilt-android-testing:2.38.1"
+    const val kaptHilt = "com.google.dagger:hilt-android-compiler:2.38.1"
+}

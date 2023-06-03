@@ -11,6 +11,7 @@ import com.elewa.flikerphotos.modules.images.data.mapper.toEntity
 import com.elewa.flikerphotos.modules.images.data.model.dto.ImageDto
 import com.elewa.flikerphotos.modules.images.data.model.dto.RemoteKeyDto
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 import javax.inject.Inject
 
@@ -47,10 +48,9 @@ class ImagesRemoteMediator @Inject constructor(
                     }
 
                 }
-                MediatorResult.Success(
-                    endOfPaginationReached = false
-                )
-//                MediatorResult.Success(endOfPaginationReached = page == response.photos.pages || page == null)
+
+                Timber.d("Elewa: $page  - ${response.photos.pages}")
+                MediatorResult.Success(endOfPaginationReached = page == response.photos.pages)
             }
 
         } catch (e: IOException) {

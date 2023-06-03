@@ -8,10 +8,13 @@ import com.elewa.flikerphotos.modules.images.data.source.remote.FlikerService
 import com.elewa.flikerphotos.modules.images.data.source.remote.ImagesRemoteMediator
 import com.elewa.flikerphotos.modules.images.domain.entity.ImageEntity
 import com.elewa.flikerphotos.modules.images.domain.repository.ImagesRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.log
 
@@ -25,18 +28,18 @@ class ImagesRepositoryImpl
     private val imagesDao = flikerDatabase.flikerDao()
     override fun getImages(): Flow<PagingData<ImageEntity>> {
         return Pager(
-                config = PagingConfig(pageSize = 20),
-                remoteMediator = ImagesRemoteMediator(flikerDatabase, flikerService),
-                pagingSourceFactory = {
-                    imagesDao.pagingSource()
-                }
-            ).flow.map { pagingData ->
-                pagingData.map { imageDto ->
-                    imageDto.toEntity()
-                }
-            }.catch {
-                Log.e("Elewa", it.message.toString())
+            config = PagingConfig(pageSize = 20),
+            remoteMediator = ImagesRemoteMediator(flikerDatabase, flikerService),
+            pagingSourceFactory = {
+                imagesDao.pagingSource()
             }
+        ).flow.map { pagingData ->
+            pagingData.map { imageDto ->
+                imageDto.toEntity()
+            }
+        }.catch {
+            Timber.e("Elewa", it.message.toString())
+        }.flowOn(Dispatchers.IO)
 
     }
 
