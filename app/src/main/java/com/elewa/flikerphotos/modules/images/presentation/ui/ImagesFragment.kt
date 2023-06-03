@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.elewa.flikerphotos.base.BaseFragment
@@ -18,6 +20,7 @@ import com.elewa.flikerphotos.modules.images.presentation.adapter.ImagesLoadStat
 import com.elewa.flikerphotos.modules.images.presentation.adapter.ImagesPagingAdapter
 import com.elewa.flikerphotos.modules.images.presentation.viewmodel.ImagesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -45,8 +48,7 @@ class ImagesFragment : BaseFragment<FragmentImagesBinding>() {
     }
 
 
-
-    private fun initView(){
+    private fun initView() {
         binding.pagingAdapter = imagesPagingAdapter
         binding.loadAdapter = imagesLoadStateAdapter
         binding.itemDecorator = itemDecorator
@@ -75,10 +77,14 @@ class ImagesFragment : BaseFragment<FragmentImagesBinding>() {
     }
 
     private fun initObservation() {
-        imagesViewModel.imagesStateLiveData.observe(viewLifecycleOwner) { imagesState ->
-            imagesState.data?.let { imagesPagingData ->
-                viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-                    imagesPagingAdapter.submitData(imagesPagingData)
+        lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                imagesViewModel.imagesState.collect { imagesState ->
+                    imagesState.data?.let { imagesPagingData ->
+                        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                            imagesPagingAdapter.submitData(imagesPagingData)
+                        }
+                    }
                 }
             }
         }
