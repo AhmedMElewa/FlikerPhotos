@@ -2,6 +2,7 @@ package com.elewa.flikerphotos.modules.images.data.repository
 
 import androidx.paging.PagingData
 import com.elewa.flikerphotos.modules.images.data.mapper.toEntity
+import com.elewa.flikerphotos.modules.images.data.mapper.toDto
 import com.elewa.flikerphotos.modules.images.data.model.api.ImageResponse
 import com.elewa.flikerphotos.modules.images.domain.entity.ImageEntity
 import com.elewa.flikerphotos.modules.images.domain.repository.ImagesRepository
@@ -37,7 +38,7 @@ class FakeImagesRepositoryImpl @Inject constructor() : ImagesRepository {
     )
 
     override fun getImages(): Flow<PagingData<ImageEntity>> {
-        val dtoList = imageList.toEntity()
+        val dtoList = imageList.toDto()
         val entityList = dtoList.map { it.toEntity() }
         return flowOf(PagingData.from(
             entityList

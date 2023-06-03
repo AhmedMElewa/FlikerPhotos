@@ -10,9 +10,9 @@ fun ImageDto.toEntity() = ImageEntity(
     previewUrl,
 )
 
-fun ImageResponse.toEntity() = ImageDto(
+fun ImageResponse.toDto() = ImageDto(
     id = id,
     previewUrl = "https://farm$farm.static.flickr.com/$server/${id}_$secret.jpg",
 )
 
-fun List<ImageResponse>.toEntity() = map { it.toEntity() }
+fun List<ImageResponse>.toDto() = map { it.toDto() }

@@ -2,7 +2,7 @@ package com.elewa.flikerphotos.modules.images.data.repository
 
 import androidx.paging.*
 import com.elewa.flikerphotos.core.data.source.local.FlikerDatabase
-import com.elewa.flikerphotos.modules.images.data.mapper.toEntity
+import com.elewa.flikerphotos.modules.images.data.mapper.toDto
 import com.elewa.flikerphotos.modules.images.data.model.FakeApiService
 import com.elewa.flikerphotos.modules.images.data.model.FakeApiServiceData
 import com.elewa.flikerphotos.modules.images.data.model.dto.ImageDto
@@ -79,7 +79,7 @@ class ImagesRemoteMediatorTest {
         val pagingState = PagingState<Int,ImageDto> (
             pages = listOf(
                 PagingSource.LoadResult.Page(
-                    data = fakeApiServiceData.fakedPagedResponses[2].photos.imagesResponse.toEntity(),
+                    data = fakeApiServiceData.fakedPagedResponses[2].photos.imagesResponse.toDto(),
                     prevKey = 2,
                     nextKey = fakeApiServiceData.fakedPagedResponses[2].photos.page+1
                 )

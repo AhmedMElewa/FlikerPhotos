@@ -7,7 +7,7 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.elewa.flikerphotos.core.data.source.local.FlikerDatabase
-import com.elewa.flikerphotos.modules.images.data.mapper.toEntity
+import com.elewa.flikerphotos.modules.images.data.mapper.toDto
 import com.elewa.flikerphotos.modules.images.data.model.dto.ImageDto
 import com.elewa.flikerphotos.modules.images.data.model.dto.RemoteKeyDto
 import retrofit2.HttpException
@@ -44,7 +44,7 @@ class ImagesRemoteMediator @Inject constructor(
                 if (!imageList.isNullOrEmpty()) {
                     flikerDatabase.withTransaction {
                         remoteKeyDao.insert(RemoteKeyDto(0, page + 1))
-                        imagesDao.insertAll(imageList.toEntity())
+                        imagesDao.insertAll(imageList.toDto())
                     }
 
                 }
