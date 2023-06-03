@@ -1,10 +1,14 @@
 plugins {
-    id ("com.android.application")
-    id ("org.jetbrains.kotlin.android")
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+    id ("androidx.navigation.safeargs.kotlin")
+    id ("kotlin-parcelize")
 }
 
 android {
-    namespace ="com.elewa.flikerphotos"
+    namespace = "com.elewa.flikerphotos"
     compileSdk = ConfigData.compileSdkVersion
 
     defaultConfig {
@@ -14,7 +18,7 @@ android {
         versionCode = ConfigData.versionCode
         versionName = ConfigData.versionName
 
-        testInstrumentationRunner= "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.elewa.flikerphotos.HiltTestRunner"
     }
 
     buildTypes {
@@ -27,21 +31,86 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    externalNativeBuild {
+        cmake {
+            path("CMakeLists.txt")
+        }
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
 
-    implementation ("androidx.core:core-ktx:1.8.0")
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation ("com.google.android.material:material:1.5.0")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation ("junit:junit:4.13.2")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")
+    // -------------------------------------- Hilt -------------------------------
+    implementation(Hilt.hiltAndroid)
+    kapt(Hilt.hiltCompiler)
+
+    // timber
+    implementation(Utils.timber)
+
+    // glide
+    implementation(Glide.glide)
+    kapt(Glide.glideKapt)
+
+    // navigation
+    implementation(Navigation.navigation)
+    implementation(Navigation.navigationFragment)
+
+    // retrofit
+    implementation(Retrofit.retrofit)
+    implementation(Retrofit.retrofitGson)
+    // okhttp
+    implementation(OkHttp.OkHttpInterceptor)
+    // room
+    implementation(Room.roomRuntime)
+    implementation(Room.roomKtx)
+    kapt(Room.roomKapt)
+    implementation(Room.roomPagging)
+    // paging
+    implementation(Pagging.pagging)
+
+    // -------------------------------------------- lifecycle -------------------------------
+    implementation(Lifecycle.coreLifeCycle)
+    implementation(Lifecycle.fragmentLifeCycle)
+    implementation(Lifecycle.activityLifeCycle)
+    implementation(Lifecycle.runtimeLifeCycle)
+    implementation(Lifecycle.livedataLifeCycle)
+    implementation(Lifecycle.viewmodelLifeCycle)
+
+    // ------------ android ui-------------------------------------
+    implementation(AndroidUI.appCompact)
+    implementation(AndroidUI.materialDesign)
+    implementation(AndroidUI.constraintLayout)
+
+    // ------------ testing -------------------------------------
+    // Local Unit Tests
+    testImplementation (Test.junit)
+    testImplementation (Test.hamcrest)
+    testImplementation (Test.testingCore)
+    testImplementation (Test.robolectric)
+    testImplementation (Test.testingCoroutines)
+    testImplementation (Test.truth)
+    testImplementation (Test.mockito)
+    testImplementation (Test.hilt)
+    kaptTest (Test.kaptHilt)
+
+    // Instrumented Unit Tests
+    androidTestImplementation (Test.junit)
+    androidTestImplementation (Test.testingCoroutines)
+    androidTestImplementation (Test.testingCore)
+    androidTestImplementation (Test.truth)
+    androidTestImplementation (Test.junitExt)
+    androidTestImplementation (Test.espresso)
+    androidTestImplementation (Test.mockito)
+    androidTestImplementation (Test.hilt)
+    kaptAndroidTest (Test.kaptHilt)
 }
